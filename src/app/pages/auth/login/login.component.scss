@@ -1,0 +1,17 @@
+.container{
+    background: linear-gradient(rgb(75, 70, 70),rgb(54, 53, 53)),#ccc;
+    height: 92%;
+}
+
+mat-card{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+}
+
+.full-width-input, button {
+    width: 100%;
+}
+

@@ -1,0 +1,16 @@
+<mat-toolbar color="primary">
+  <ng-container *ngIf="rol != '' ">
+    <button mat-icon-button (click)="onToggleSidenav()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </ng-container>
+    <span>Category</span>
+    <span class="spacer"></span>
+    <!-- Con routerLink nosotros le indicamos a donde queremos que se dirija al presionar el boton -->
+    <a *ngIf="!isLogged; else viewLogout" mat-button routerLink="/login">Iniciar sesión</a>
+    <!-- <a *ngIf="rol != '' " mat-button routerLink="/admin">Admin</a> -->
+</mat-toolbar>
+
+<ng-template #viewLogout>
+  <a mat-button (click)="onLogout()">Cerrar sesión</a>
+</ng-template>
