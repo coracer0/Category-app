@@ -11,7 +11,6 @@ import {MaterialModule} from '@app/material.modules';
 import { SidebarModule } from './shared/components/sidebar/sidebar.module'
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UtilsService } from './shared/services/util.service';
-import { PacienteComponent } from './paciente/paciente.component';
 import { LoadingComponent } from './shared/components/loading/loading.component';
 import { AdminInterceptor } from './shared/interceptors/admin-interceptor';
 
@@ -22,7 +21,6 @@ import { AdminInterceptor } from './shared/interceptors/admin-interceptor';
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    PacienteComponent,
     LoadingComponent
   ],
   imports: [
