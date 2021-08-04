@@ -16,8 +16,7 @@ const helper = new JwtHelperService();
 export class AuthService {
 
   private loggedIn = new BehaviorSubject<boolean>(false);
-  private rol = new BehaviorSubject<string>("");
-
+  
   constructor(private http: HttpClient, private _snackBar: MatSnackBar, private router: Router) {
     this.checkToken();
   }
@@ -26,16 +25,12 @@ export class AuthService {
     return this.loggedIn.asObservable();
   }
 
-  get getRol$(): Observable<string> {
-    return this.rol.asObservable();
-  }
 
   logIn(authData: User): Observable<UserResponse | void> {
     return this.http.post<UserResponse>(`${environment.URL_API}/auth`, authData).pipe(
         map((user: UserResponse) => {
           this.saveLocalStorage(user);
           this.loggedIn.next(true);
-          this.rol.next(user.rol);
           return user;
         }),
         catchError((err) => this.handleError(err))
@@ -45,7 +40,6 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem("user");
     this.loggedIn.next(false);
-    this.rol.next("");
     this.router.navigate(['/login']);
   }
 
@@ -57,13 +51,12 @@ export class AuthService {
         this.logout();
       } else {
         this.loggedIn.next(true);
-        this.rol.next(user.rol);
       }
     }
   }
 
   private saveLocalStorage(user: UserResponse): void {
-    const {idUsuario, idRol, message, ...rest} = user;
+    const {cveUsuario, message, ...rest} = user;
     console.log(rest);
     localStorage.setItem("user", JSON.stringify(rest));
   }

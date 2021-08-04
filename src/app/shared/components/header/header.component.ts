@@ -11,7 +11,6 @@ import { takeUntil } from 'rxjs/operators';
 export class HeaderComponent implements OnInit, OnDestroy{
 
   private destroy = new Subject<any>();
-  rol = "";
   isLogged = false;
   @Output() toggleSidenav = new EventEmitter<void>();
 
@@ -21,11 +20,7 @@ export class HeaderComponent implements OnInit, OnDestroy{
   ngOnInit(): void {
       this.authSvc.isLogged
       .pipe(takeUntil(this.destroy))
-      .subscribe(res => this.isLogged = res)
-
-      this.authSvc.getRol$
-      .pipe(takeUntil(this.destroy))
-      .subscribe(res => this.rol = res);
+      .subscribe(res => this.isLogged = res);
   }
 
   ngOnDestroy(): void {
