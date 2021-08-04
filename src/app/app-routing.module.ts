@@ -20,6 +20,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/auth/login/login.module').then(m => m.LoginModule) ,
     canActivate: [CheckLoginGuard]
   },
+  { path: 'category', loadChildren: () => import('./pages/category/category.module').then(m => m.CategoryModule) },
 ];
 
 @NgModule({
