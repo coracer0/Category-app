@@ -18,9 +18,8 @@
       <mat-form-field  class ="full-whidth"appearance="outline">
         <mat-label>Tipo</mat-label>
         <mat-select formControlName="tipo">
-          <mat-option >
-           
-
+          <mat-option *ngFor="let tipo of tipos" [value]="tipo.value">         
+            {{tipo.viewValue}}
           </mat-option>
         </mat-select>
       </mat-form-field>

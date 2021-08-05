@@ -1,6 +1,3 @@
-export interface Tipo{
-    tipo: number;
-}
 
 export interface CategoryResponse {
     message: string;

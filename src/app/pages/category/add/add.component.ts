@@ -2,18 +2,20 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CategoryService } from './../category.service';
 import { takeUntil } from 'rxjs/operators';
-import { Tipo } from '../../../shared/models/category.interface';
 import { Subject } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { AuthService } from '@app/pages/auth/auth.service';
 enum Action{
   EDIT="edit",
   NEW="new"
 }
 
-//aqui creas la interface
-
+interface Tipo {
+  value: number;
+  viewValue: string;
+}
 
 
 @Component({
@@ -21,38 +23,33 @@ enum Action{
   templateUrl: './add.component.html',
   styleUrls: ['./add.component.scss']
 })
-export class AddComponent implements OnInit, OnDestroy {
-  
-//variables
+export class AddComponent implements OnInit, OnDestroy{  
+
+  tipos:Tipo[]=[
+    {value: 1, viewValue: 'Videojuego'},
+    {value: 2, viewValue: 'Ropa'},
+    {value: 3, viewValue: 'Electrodomestiocs'}
+  ];
+  //variables
 actionTODO = Action.NEW
-private destroy$= new Subject<any>();
-tipos:Tipo[]=[
-  //aqui los datos de acuerdo a la interfase de arriba uwu tkm lofiu me quieres? yo a ti si :c  pk no me das amor digo cocacola y una pitza
-];
+private destroy$= new Subject<any>()
 
   addForm = this.fb.group({
     nombre:['',[Validators.required]],
     descripcion:['',[Validators.required]],
-    tipo:['',[Validators.required]]
+    tipo:['',[Validators.required]],
+    cveRegistro: this.authSvc.userValue?.cveUsuario
   });
 
-  constructor(private fb:FormBuilder,private AddSvc:CategoryService,private _snackBar:MatSnackBar) { }
+  constructor(private fb:FormBuilder,private AddSvc:CategoryService,private _snackBar:MatSnackBar, private authSvc: AuthService) { }
   
   ngOnInit(): void {
-  this.getTipos();
   }
 
   ngOnDestroy(): void {
     this.destroy$.next({});
     this.destroy$.complete();
   }
-
-   private getTipos():void{
-    this.AddSvc.getTipos()
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(tipos =>this.tipos=tipos);
-
-  } 
 
   onSave():void{
     if(this.addForm.invalid)
@@ -61,6 +58,7 @@ tipos:Tipo[]=[
     const formValue=this.addForm.value;
 
     if(this.actionTODO==Action.NEW){
+      
       this.AddSvc.new(formValue)
       .pipe(takeUntil(this.destroy$))
       .subscribe(result =>{
@@ -71,7 +69,7 @@ tipos:Tipo[]=[
     }else{
       //update
     }
+    
   }
-
 
 }

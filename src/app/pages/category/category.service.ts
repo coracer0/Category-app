@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { CategoryResponse, Tipo } from '@app/shared/models/category.interface';
+import { CategoryResponse } from '@app/shared/models/category.interface';
+import { UserResponse } from '@app/shared/models/user.interface';
 import { environment } from '@env/environment';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -20,11 +21,6 @@ export class CategoryService {
     .pipe(catchError((err) => this.handleError(err)));
   }
 
-  getTipos(): Observable<Tipo[]> {
-    return this.http.get<Tipo[]>(`${environment.URL_API}/general/tipo`)
-    .pipe(catchError((error)=>this.handleError(error)));
-   }
- 
  
    new(nombre:CategoryResponse):Observable<any>{
      return this.http.put<any>(`${environment.URL_API}/category`,nombre)
