@@ -3,12 +3,7 @@
     <mat-card-title> Categorias </mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <div class="buttonStyle">
-      <button mat-raised-button color="primary">
-        <mat-icon>add</mat-icon>
-        <span>Nueva Categoria</span>
-      </button>
-    </div>
+    
     <table mat-table [dataSource]="lstCategorias" class="mat-elevation-z8">
       <!--- Note that these columns can be defined in any order.
                   The actual rendered columns are set as a property on the row definition" -->
@@ -46,7 +41,7 @@
       <ng-container matColumnDef="editar">
         <th mat-header-cell *matHeaderCellDef>Editar</th>
         <td mat-cell *matCellDef="let category">
-          <button mat-icon-button color="primary">
+          <button type="button" mat-icon-button color="primary" (click)="onOpenModal(category)">
             <mat-icon>edit</mat-icon>
           </button>
         </td>

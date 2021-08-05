@@ -1,0 +1,37 @@
+
+        <h2 mat-dialog-title>Añadir Categoria</h2>
+ 
+    <mat-dialog-content>
+      <form [formGroup]="updForm">
+        <mat-form-field class ="full-whidth" appearance="outline">
+          <mat-label>Nombre</mat-label>
+          <input formControlName="nombre" matInput required>
+        </mat-form-field>
+  
+        <mat-form-field class ="full-whidth"appearance="outline">
+          <mat-label>Descripción</mat-label>
+          <input formControlName="descripcion" matInput required>
+        </mat-form-field>
+  
+        <mat-form-field  class ="full-whidth"appearance="outline">
+          <mat-label>Tipo</mat-label>
+          <mat-select formControlName="tipo">
+            <mat-option *ngFor="let tipo of tipos" [value]="tipo.value">         
+              {{tipo.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      
+      </form>
+    </mat-dialog-content>
+  
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dilog-close>
+            <mat-icon>cancel</mat-icon>Cancelar</button>
+            
+      <button [disabled]="updForm.invalid" mat-raised-button color="primary" (click)="onSave()" >
+        <mat-icon>save</mat-icon>Aceptar</button>
+
+      
+
+    </mat-dialog-actions>
