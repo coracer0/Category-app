@@ -1,5 +1,5 @@
-export interface Category {
-
+export interface Tipo{
+    tipo: number;
 }
 
 export interface CategoryResponse {

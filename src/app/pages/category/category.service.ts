@@ -1,16 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { CategoryResponse } from '@app/shared/models/category.interface';
-import { UserResponse } from '@app/shared/models/user.interface';
+import { CategoryResponse, Tipo } from '@app/shared/models/category.interface';
 import { environment } from '@env/environment';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService {
+
 
   constructor(private http:HttpClient, private _snackBar:MatSnackBar) { }
 
@@ -18,8 +19,19 @@ export class CategoryService {
     return this.http.get<CategoryResponse[]>(`${environment.URL_API}/category`)
     .pipe(catchError((err) => this.handleError(err)));
   }
+
+  getTipos(): Observable<Tipo[]> {
+    return this.http.get<Tipo[]>(`${environment.URL_API}/general/tipo`)
+    .pipe(catchError((error)=>this.handleError(error)));
+   }
+ 
+ 
+   new(nombre:CategoryResponse):Observable<any>{
+     return this.http.put<any>(`${environment.URL_API}/category`,nombre)
+     .pipe(catchError((error)=>this.handleError(error)));
+   }
+
   GetById(): void{}
-  new(): void{}
   update():void{}
   delete():void{}
 
@@ -32,5 +44,4 @@ export class CategoryService {
     });
     return throwError(errorMessage);
   }
-
 }
