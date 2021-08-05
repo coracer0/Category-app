@@ -29,7 +29,11 @@ export class CategoryService {
 
   GetById(): void{}
   update():void{}
-  delete():void{}
+  
+  delete(cveCategoria: number):Observable<any> {
+    return this.http.delete<any>(`${environment.URL_API}/category/${cveCategoria}`,)
+     .pipe(catchError((error)=>this.handleError(error)));
+  }
 
   private handleError(err: any): Observable<never> {
     let errorMessage = 'Ocurrió un error';
