@@ -1,5 +1,5 @@
 
-        <h2 mat-dialog-title>Añadir Categoria</h2>
+        <h2 mat-dialog-title>{{data?.title}}</h2>
  
     <mat-dialog-content>
       <form [formGroup]="updForm">
@@ -26,12 +26,9 @@
     </mat-dialog-content>
   
     <mat-dialog-actions align="end">
-        <button mat-button mat-dilog-close>
+        <button mat-button mat-dialog-close>
             <mat-icon>cancel</mat-icon>Cancelar</button>
             
       <button [disabled]="updForm.invalid" mat-raised-button color="primary" (click)="onSave()" >
         <mat-icon>save</mat-icon>Aceptar</button>
-
-      
-
     </mat-dialog-actions>
