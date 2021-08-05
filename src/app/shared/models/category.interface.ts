@@ -5,5 +5,5 @@ export interface CategoryResponse {
     nombre: string;
     descripcion: string;
     tipo: number;
-    cveRegistro: number;
+    persona: string;
 }

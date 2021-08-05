@@ -15,7 +15,7 @@ import { ModalFormularioComponent } from './component/modal-formulario/modal-for
 })
 export class CategoryComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<any>();
-  displayedColumns: string[] = ['cveCategoria', 'nombre', 'descripcion', 'tipo', 'cveRegistro', 'editar', 'eliminar'];
+  displayedColumns: string[] = ['cveCategoria', 'nombre', 'descripcion', 'tipo', 'persona', 'editar', 'eliminar'];
   lstCategorias: CategoryResponse[] = [];
   
   constructor(private catSvc: CategoryService, private _snackBar: MatSnackBar,private dialog:MatDialog) { }

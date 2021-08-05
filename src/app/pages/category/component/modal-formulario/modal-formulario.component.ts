@@ -50,7 +50,6 @@ export class ModalFormularioComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-    console.log(this.data)
     if (this.data?.category.hasOwnProperty('nombre')) {
       this.actionTODO = Action.EDIT;
       this.data.title = "Editar Categoria";
