@@ -20,14 +20,9 @@ export class SidebarComponent implements OnInit, OnDestroy {
     {
       this.lstMenu = [
         {
-          nombre: 'Añadir Categoria',
-          icono: 'add_circle_outline',
-          ruta: '/Category/add',
-        },
-        {
           nombre: 'Ver categorias',
           icono: 'Category',
-          ruta: '/Category',
+          ruta: '/category',
         }
       ];
     }
