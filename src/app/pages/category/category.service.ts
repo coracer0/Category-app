@@ -28,7 +28,11 @@ export class CategoryService {
    }
 
   GetById(): void{}
-  update():void{}
+  update(nombre:CategoryResponse):Observable<any>{
+    return this.http.post<any>(`${environment.URL_API}/category`,nombre)
+    .pipe(catchError((error)=>this.handleError(error)));
+  }
+
   
   delete(cveCategoria: number):Observable<any> {
     return this.http.delete<any>(`${environment.URL_API}/category/${cveCategoria}`,)

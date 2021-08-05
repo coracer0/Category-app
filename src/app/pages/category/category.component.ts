@@ -1,3 +1,4 @@
+import { MatDialog } from '@angular/material/dialog';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CategoryResponse } from '@app/shared/models/category.interface';
@@ -5,6 +6,7 @@ import { UserResponse } from '@app/shared/models/user.interface';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { CategoryService } from './category.service';
+import { ModalFormularioComponent } from './component/modal-formulario/modal-formulario.component';
 
 @Component({
   selector: 'app-category',
@@ -16,7 +18,7 @@ export class CategoryComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['cveCategoria', 'nombre', 'descripcion', 'tipo', 'cveRegistro', 'editar', 'eliminar'];
   lstCategorias: CategoryResponse[] = [];
   
-  constructor(private catSvc: CategoryService, private _snackBar: MatSnackBar) { }
+  constructor(private catSvc: CategoryService, private _snackBar: MatSnackBar,private dialog:MatDialog) { }
   
   ngOnInit(): void {
     this.listCategorias();
@@ -44,6 +46,12 @@ export class CategoryComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next({});
     this.destroy$.complete();
+  }
+  onOpenModal(category={}):void{
+const dialogRef = this.dialog.open(ModalFormularioComponent,{
+  disableClose:true,
+  data:{title:"Categoria",category}
+})
   }
 
 }
