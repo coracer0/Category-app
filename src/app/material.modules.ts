@@ -11,6 +11,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatTableModule} from '@angular/material/table';
+import {MatSelectModule} from '@angular/material/select';
 
 
 const myModules = [
@@ -24,6 +25,7 @@ const myModules = [
     MatInputModule,
     MatSnackBarModule,
     MatDialogModule,
+    MatSelectModule,
     MatProgressSpinnerModule,
     MatTableModule  
 ];

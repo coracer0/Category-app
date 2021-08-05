@@ -1,6 +1,3 @@
-export interface Category {
-
-}
 
 export interface CategoryResponse {
     message: string;
