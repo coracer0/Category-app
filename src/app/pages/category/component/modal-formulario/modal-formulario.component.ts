@@ -64,7 +64,7 @@ export class ModalFormularioComponent implements OnInit, OnDestroy {
   }
 
   onSave(): void {
-    /* if (this.updForm.invalid)
+     if (this.updForm.invalid)
       return;
     const formValue = this.updForm.value;
 
@@ -77,9 +77,7 @@ export class ModalFormularioComponent implements OnInit, OnDestroy {
           });
           this.dialogRef.close(true);
         });
-
-    } */
-
+    } 
   }
 
   private editar(): void {
