@@ -7,6 +7,7 @@ import { catchError, map } from 'rxjs/operators';
 import { environment } from '@env/environment';
 import {JwtHelperService} from '@auth0/angular-jwt'
 import { Router } from '@angular/router';
+import { ThisReceiver } from '@angular/compiler';
 
 const helper = new JwtHelperService();
 
@@ -15,10 +16,20 @@ const helper = new JwtHelperService();
 })
 export class AuthService {
 
+private user = new BehaviorSubject<UserResponse|null>(null);
+
   private loggedIn = new BehaviorSubject<boolean>(false);
   
   constructor(private http: HttpClient, private _snackBar: MatSnackBar, private router: Router) {
     this.checkToken();
+  }
+
+  get user$(): Observable<UserResponse| null>{
+    return this.user.asObservable();
+  }
+
+  get userValue(): UserResponse| null{
+    return this.user.getValue();
   }
 
   get isLogged(): Observable<boolean> {
@@ -39,6 +50,7 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem("user");
+    localStorage.removeItem("auth");
     this.loggedIn.next(false);
     this.router.navigate(['/login']);
   }
@@ -56,7 +68,7 @@ export class AuthService {
   }
 
   private saveLocalStorage(user: UserResponse): void {
-    const {cveUsuario, message, ...rest} = user;
+    const {cveUsuario, message,token, ...rest} = user;
     console.log(rest);
     localStorage.setItem("user", JSON.stringify(rest));
   }
