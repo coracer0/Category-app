@@ -7,7 +7,7 @@ import { catchError, map } from 'rxjs/operators';
 import { environment } from '@env/environment';
 import {JwtHelperService} from '@auth0/angular-jwt'
 import { Router } from '@angular/router';
-import { ThisReceiver } from '@angular/compiler';
+import { UtilsService } from '@app/shared/services/util.service';
 
 const helper = new JwtHelperService();
 
@@ -18,9 +18,8 @@ export class AuthService {
 
 private user = new BehaviorSubject<UserResponse|null>(null);
 
-  private loggedIn = new BehaviorSubject<boolean>(false);
   
-  constructor(private http: HttpClient, private _snackBar: MatSnackBar, private router: Router) {
+  constructor(private http: HttpClient, private _snackBar: MatSnackBar, private router: Router, private utilsSvc: UtilsService) {
     this.checkToken();
   }
 
@@ -32,16 +31,12 @@ private user = new BehaviorSubject<UserResponse|null>(null);
     return this.user.getValue();
   }
 
-  get isLogged(): Observable<boolean> {
-    return this.loggedIn.asObservable();
-  }
-
 
   logIn(authData: User): Observable<UserResponse | void> {
     return this.http.post<UserResponse>(`${environment.URL_API}/auth`, authData).pipe(
         map((user: UserResponse) => {
           this.saveLocalStorage(user);
-          this.loggedIn.next(true);
+          this.user.next(user);
           return user;
         }),
         catchError((err) => this.handleError(err))
@@ -49,9 +44,9 @@ private user = new BehaviorSubject<UserResponse|null>(null);
   }
 
   logout(): void {
+    this.utilsSvc.openSidebar(false);
     localStorage.removeItem("user");
-    localStorage.removeItem("auth");
-    this.loggedIn.next(false);
+    this.user.next(null);
     this.router.navigate(['/login']);
   }
 
@@ -62,14 +57,13 @@ private user = new BehaviorSubject<UserResponse|null>(null);
       if(isExpired){
         this.logout();
       } else {
-        this.loggedIn.next(true);
+        this.user.next(user);
       }
     }
   }
 
   private saveLocalStorage(user: UserResponse): void {
-    const {cveUsuario, message,token, ...rest} = user;
-    console.log(rest);
+    const {message, ...rest} = user;
     localStorage.setItem("user", JSON.stringify(rest));
   }
 
