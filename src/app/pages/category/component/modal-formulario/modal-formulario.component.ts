@@ -76,6 +76,7 @@ export class ModalFormularioComponent implements OnInit, OnDestroy {
           });
           this.dialogRef.close(true);
         });
+        
     } 
   }
 
