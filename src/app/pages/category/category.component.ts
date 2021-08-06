@@ -56,9 +56,10 @@ export class CategoryComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe(result=>{
         if (result) {
-          this.listCategorias();
+          this.listCategorias(); 
         }
       })
   }
 
+  
 }
