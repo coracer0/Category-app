@@ -19,11 +19,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     {
       this.lstMenu = [
-        {
-          nombre: 'Añadir Categoria',
-          icono: 'add_circle_outline',
-          ruta: '/category/add',
-        },
+     
         {
           nombre: 'Ver categorias',
           icono: 'Category',

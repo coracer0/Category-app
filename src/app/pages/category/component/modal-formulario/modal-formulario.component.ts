@@ -11,7 +11,9 @@ import { AuthService } from '@app/pages/auth/auth.service';
 import { CategoryResponse } from '@app/shared/models/category.interface';
 
 enum Action {
-  EDIT = "edit"
+
+  EDIT="edit",
+  NEW="new"
 
 }
 
@@ -34,7 +36,7 @@ export class ModalFormularioComponent implements OnInit, OnDestroy {
     { value: 3, viewValue: 'Electrodomestiocs' }
   ];
   //variables
-  actionTODO = Action.EDIT
+  actionTODO = Action.NEW
   private destroy$ = new Subject<any>()
 
   updForm = this.fb.group({
@@ -63,11 +65,22 @@ export class ModalFormularioComponent implements OnInit, OnDestroy {
   }
 
   onSave(): void {
+    
      if (this.updForm.invalid)
       return;
     const formValue = this.updForm.value;
 
-    if (this.actionTODO == Action.EDIT) {
+    if(this.actionTODO==Action.NEW){
+      
+      this.AddSvc.new(formValue)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(result =>{
+        this._snackBar.open(result.message,'',{
+        duration:6000
+      });
+      this.dialogRef.close(true);
+      });
+    }else{
       this.AddSvc.update(formValue)
         .pipe(takeUntil(this.destroy$))
         .subscribe(result => {
