@@ -33,7 +33,7 @@ export class ModalFormularioComponent implements OnInit, OnDestroy {
   tipos: Tipo[] = [
     { value: 1, viewValue: 'Videojuego' },
     { value: 2, viewValue: 'Ropa' },
-    { value: 3, viewValue: 'Electrodomestiocs' }
+    { value: 3, viewValue: 'Electrodomesticos' }
   ];
   //variables
   actionTODO = Action.NEW
@@ -41,9 +41,17 @@ export class ModalFormularioComponent implements OnInit, OnDestroy {
 
   updForm = this.fb.group({
     cveCategoria: [''],
-    nombre: ['', [Validators.required]],
-    descripcion: ['', [Validators.required]],
-    tipo: ['', [Validators.required]],
+    nombre: ['', [
+      Validators.required,
+      Validators.maxLength(250)
+    ]],
+    descripcion: ['', [
+      Validators.required,
+      Validators.maxLength(500)
+    ]],
+    tipo: ['', [
+      Validators.required
+    ]],
     cveRegistro: this.authSvc.userValue?.cveUsuario
   });
 
@@ -103,5 +111,20 @@ export class ModalFormularioComponent implements OnInit, OnDestroy {
     });
 
   }
+
+  getErrorMessage(field: string): string {
+     let message = "";
+    const campo = this.updForm?.get(field);
+
+    if (campo != null) {
+     if (campo.errors?.required) {
+        message = "Este campo es requerido"; 
+      }else  if (campo.errors?.maxLength) {
+        message = "Los caracteres se han rebasado los caracteres máximos";
+      } 
+    } 
+    return message;
+  }
+
 
 }

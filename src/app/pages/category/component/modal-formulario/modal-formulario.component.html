@@ -5,12 +5,16 @@
       <form [formGroup]="updForm">
         <mat-form-field class ="full-whidth" appearance="outline">
           <mat-label>Nombre</mat-label>
-          <input formControlName="nombre" matInput required>
+          <input formControlName="nombre" type="text" maxlength="251" matInput required>
+          <mat-error>{{ getErrorMessage('nombre') }}</mat-error>
+ 
         </mat-form-field>
   
         <mat-form-field class ="full-whidth"appearance="outline">
           <mat-label>Descripción</mat-label>
-          <textarea formControlName="descripcion" matInput required></textarea>
+          <textarea formControlName="descripcion" maxLength="510" matInput required></textarea>
+          <mat-error>{{ getErrorMessage('descripcion') }}</mat-error>
+
         </mat-form-field>
   
         <mat-form-field  class ="full-whidth"appearance="outline">
@@ -20,6 +24,7 @@
               {{tipo.viewValue}}
             </mat-option>
           </mat-select>
+          <mat-error>{{ getErrorMessage('tipo') }}</mat-error>
         </mat-form-field>
       
       </form>
