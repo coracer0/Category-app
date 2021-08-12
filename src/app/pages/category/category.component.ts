@@ -7,6 +7,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { CategoryService } from './category.service';
 import { ModalFormularioComponent } from './component/modal-formulario/modal-formulario.component';
+import { DialogConfirmComponent } from '@app/shared/components/dialog-confirm/dialog-confirm.component';
 
 @Component({
   selector: 'app-category',
@@ -31,16 +32,26 @@ export class CategoryComponent implements OnInit, OnDestroy {
   }
 
   onDelete(cveCategoria: number) {
-    this.catSvc.delete(cveCategoria)
+    this.dialog.open(DialogConfirmComponent, {
+      disableClose: true,
+      data: '¿Realmente quieres eliminar el registro?'
+    }).beforeClosed()
       .pipe(takeUntil(this.destroy$))
       .subscribe(result => {
         if (result) {
-          this._snackBar.open(result.message, '', {
-            duration: 6000
-          });
-          this.listCategorias();
+          this.catSvc.delete(cveCategoria)
+            .pipe(takeUntil(this.destroy$))
+            .subscribe(result => {
+              if (result) {
+                this._snackBar.open(result.message, '', {
+                  duration: 6000
+                });
+                this.listCategorias();
+              }
+            });
+
         }
-      });
+      })
   }
 
   ngOnDestroy(): void {
@@ -54,12 +65,12 @@ export class CategoryComponent implements OnInit, OnDestroy {
     })
     dialogRef.beforeClosed()
       .pipe(takeUntil(this.destroy$))
-      .subscribe(result=>{
+      .subscribe(result => {
         if (result) {
-          this.listCategorias(); 
+          this.listCategorias();
         }
       })
   }
 
-  
+
 }

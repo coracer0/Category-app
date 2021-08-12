@@ -13,6 +13,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UtilsService } from './shared/services/util.service';
 import { LoadingComponent } from './shared/components/loading/loading.component';
 import { AdminInterceptor } from './shared/interceptors/admin-interceptor';
+import { DialogConfirmComponent } from './shared/components/dialog-confirm/dialog-confirm.component';
 
 
 
@@ -21,7 +22,8 @@ import { AdminInterceptor } from './shared/interceptors/admin-interceptor';
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    LoadingComponent
+    LoadingComponent,
+    DialogConfirmComponent
   ],
   imports: [
     BrowserModule,
